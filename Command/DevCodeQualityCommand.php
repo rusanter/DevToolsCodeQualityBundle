@@ -56,7 +56,7 @@ class DevCodeQualityCommand extends ContainerAwareCommand
             ->setDescription('Run QA tests')
             ->addOption('inspect-path', null, InputOption::VALUE_REQUIRED, 'Path where your code base is located')
             ->addOption('output-path', null, InputOption::VALUE_REQUIRED, 'Path where reports will be generated')
-            ->addOption('bin-path', null, InputOption::VALUE_REQUIRED, 'Composer bin-dir', 'bin')
+            ->addOption('bin-path', null, InputOption::VALUE_REQUIRED, 'Composer bin-dir')
             ->addOption('skip-phploc', null, InputOption::VALUE_NONE, 'Disable PHPLOC')
             ->addOption('skip-pdepend', null, InputOption::VALUE_NONE, 'Disable PHP_Depend')
             ->addOption('skip-phpmd', null, InputOption::VALUE_NONE, 'Disable PHP Mess Detector')
@@ -76,6 +76,9 @@ class DevCodeQualityCommand extends ContainerAwareCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         // configuration
+        $this->binPath = $input->getOption('bin-path') !== null ?
+            $input->getOption('bin-path') :
+            $this->getContainer()->getParameter('dev_tools_code_quality.bin_path');
         $this->inspectPath = $input->getOption('inspect-path') !== null ?
             $input->getOption('inspect-path') :
             $this->getContainer()->getParameter('dev_tools_code_quality.inspect_path');
@@ -83,7 +86,6 @@ class DevCodeQualityCommand extends ContainerAwareCommand
             $input->getOption('output-path') :
             $this->getContainer()->getParameter('dev_tools_code_quality.output_path');
         $this->dataPath = $this->outputPath.DIRECTORY_SEPARATOR.'data';
-        $this->binPath = $input->getOption('bin-path');
         $features = $this->getContainer()->getParameter('dev_tools_code_quality.features');
 
         $this->ensurePaths($this->inspectPath, $this->dataPath);

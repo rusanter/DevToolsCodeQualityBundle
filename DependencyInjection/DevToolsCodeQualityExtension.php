@@ -24,6 +24,7 @@ class DevToolsCodeQualityExtension extends Extension
 
         $container->setParameter('dev_tools_code_quality.inspect_path', $config['inspect_path']);
         $container->setParameter('dev_tools_code_quality.output_path', $config['output_path']);
+        $container->setParameter('dev_tools_code_quality.bin_path', $config['bin_path']);
 
         $features = array();
         foreach ($config['features'] as $featureName) {

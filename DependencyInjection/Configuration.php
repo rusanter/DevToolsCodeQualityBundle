@@ -23,6 +23,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('inspect_path')->defaultValue('src')->end()
                 ->scalarNode('output_path')->defaultValue('web/qa')->end()
+                ->scalarNode('bin_path')->defaultValue('bin')->end()
                 ->arrayNode('features')
                     ->treatNullLike(array())
                     ->prototype('scalar')->end()
