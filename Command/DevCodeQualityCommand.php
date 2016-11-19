@@ -219,11 +219,13 @@ class DevCodeQualityCommand extends ContainerAwareCommand
      */
     protected function runPhpcs()
     {
+        $standard = $this->getContainer()->getParameter('dev_tools_code_quality.phpcs.standard');
+
         $procBuilder = new ProcessBuilder();
         $procBuilder
             ->setPrefix($this->binPath.DIRECTORY_SEPARATOR.'phpcs')
             ->setArguments(array(
-                '--standard=PSR2',
+                '--standard='.join(',', $standard),
                 '--report=json',
                 '--report-file='.$this->dataPath.DIRECTORY_SEPARATOR.'phpcs.json',
                 $this->inspectPath,

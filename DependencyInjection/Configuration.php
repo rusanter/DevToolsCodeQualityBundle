@@ -35,6 +35,14 @@ class Configuration implements ConfigurationInterface
                         'phpcs',
                     ))
                     ->end()
+                ->arrayNode('phpcs')
+                    ->treatNullLike(array())
+                    ->children()
+                        ->arrayNode('standard')
+                            ->treatNullLike(array('Symfony2'))
+                            ->prototype('scalar')->end()
+                            ->defaultValue(array('Symfony2'))
+                            ->end()
             ;
 
         return $treeBuilder;

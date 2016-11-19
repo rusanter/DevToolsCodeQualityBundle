@@ -79,40 +79,48 @@ Here are the full configuration options available at the moment
 with the default values:
 
 ```yaml
-    dev_tools_code_quality:
-        # Path where your code base is located
-        inspect_path: src
-        # Path where reports will be generated
-        output_path: web/qa
-        # Composer bin-dir
-        bin_path: bin
-        # Array of commands to run
-        # The following values are allowed: ['phploc', 'pdepend', 'phpmd', 'phpcpd', 'phpcs']
-        features:
-            - phploc
-            - pdepend
-            - phpmd
-            - phpcpd
-            - phpcs
+dev_tools_code_quality:
+    # Path where your code base is located
+    inspect_path: src
+    # Path where reports will be generated
+    output_path: web/qa
+    # Composer bin-dir
+    bin_path: bin
+    # Array of commands to run
+    # The following values are allowed: ['phploc', 'pdepend', 'phpmd', 'phpcpd', 'phpcs']
+    features:
+        - phploc
+        - pdepend
+        - phpmd
+        - phpcpd
+        - phpcs
+    # Options for PHP_CodeSniffer
+    phpcs:
+        # A list of standards to be checked, selected from the available set.
+        # PHPCS supports [PSR1, PSR2, Zend, PHPCS, PEAR, Squiz, MySource] by default.
+        # The "Symfony2" standard installed as a dependency and available 
+        # on the following path: vendor/escapestudios/symfony2-coding-standard/Symfony2.
+        standard:
+            - Symfony2
 ```
 
 ### Change configuration on the fly
 
 ```console
-    $ php app/console dev:code-quality --help
-    Usage:
-      dev:code-quality [options]
+$ php app/console dev:code-quality --help
+Usage:
+  dev:code-quality [options]
 
-    Options:
-          --inspect-path=INSPECT-PATH  Path where your code base is located
-          --output-path=OUTPUT-PATH    Path where reports will be generated
-          --bin-path=BIN-PATH          Composer bin-dir
-          --skip-phploc                Disable PHPLOC
-          --skip-pdepend               Disable PHP_Depend
-          --skip-phpmd                 Disable PHP Mess Detector
-          --skip-phpcpd                Disable PHP Copy/Paste Detector
-          --skip-phpcs                 Disable PHP_CodeSniffer
-      -e, --env=ENV                The Environment name. [default: "dev"]
+Options:
+      --inspect-path=INSPECT-PATH  Path where your code base is located
+      --output-path=OUTPUT-PATH    Path where reports will be generated
+      --bin-path=BIN-PATH          Composer bin-dir
+      --skip-phploc                Disable PHPLOC
+      --skip-pdepend               Disable PHP_Depend
+      --skip-phpmd                 Disable PHP Mess Detector
+      --skip-phpcpd                Disable PHP Copy/Paste Detector
+      --skip-phpcs                 Disable PHP_CodeSniffer
+  -e, --env=ENV                    The Environment name. [default: "dev"]
 ```
 
 Step 4: Improve your code by using this Bundle
@@ -121,7 +129,7 @@ Step 4: Improve your code by using this Bundle
 Use the command to generate reports:
 
 ```console
-    php app/console dev:code-quality
+php app/console dev:code-quality
 ```
 
 When the command finishes, the full report will be available at this page:

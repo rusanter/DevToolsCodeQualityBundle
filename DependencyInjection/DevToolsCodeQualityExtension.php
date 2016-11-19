@@ -32,7 +32,31 @@ class DevToolsCodeQualityExtension extends Extension
         }
         $container->setParameter('dev_tools_code_quality.features', $features);
 
+        $this->processPhpcsConfig($config, $container);
+
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+    }
+
+    /**
+     * @param array            $config
+     * @param ContainerBuilder $container
+     */
+    private function processPhpcsConfig($config, ContainerBuilder $container)
+    {
+        if (empty($config['phpcs']['standard'])) {
+            $config['phpcs']['standard'] = array('Symfony2');
+        }
+
+        $standard = $config['phpcs']['standard'];
+
+        // Replace not-default aliases of Standards with paths.
+        foreach ($standard as $k => $name) {
+            if ($name === 'Symfony2') {
+                $standard[$k] = 'vendor/escapestudios/symfony2-coding-standard/Symfony2';
+            }
+        }
+
+        $container->setParameter('dev_tools_code_quality.phpcs.standard', $standard);
     }
 }

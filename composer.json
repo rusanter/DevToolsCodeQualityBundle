@@ -14,7 +14,8 @@
     ],
     "license": "MIT",
     "require": {
-        "pdepend/pdepend" : "^2.0",
+        "escapestudios/symfony2-coding-standard": "^2.0",
+        "pdepend/pdepend": "^2.0",
         "phploc/phploc": "^2.1",
         "phpmd/phpmd" : "^2.4",
         "sebastian/phpcpd": "^2.0",
